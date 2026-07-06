@@ -94,9 +94,9 @@ def user_interface(random_word_letters, guessed_word):
     while guessed_word != random_word_letters and hangman_stage < 6:
         guess = input("Guess a letter: ")
 
-        if len(guess) != 1:
+        if not guess.isalpha():
             print("Try only one letter at a time!\n")
-            
+
         elif guess in random_word_letters and guess not in guessed_word:
             print(f"The letter '{guess}' is in the word!")
             letter_index = [i for i, val in enumerate(random_word_letters) if val == guess]
