@@ -15,18 +15,32 @@ class Tiles:
     def reveal(self):
         print(self.number)
 
+def coda_sorting_algo(list):
+    for index in range(len(list)):
+        if list[index] < list[index+1]:
+            list
+        elif list[index] > list[index+1]:
+            temp = list[index+1]
+            list[index+1] = list[index]
+            list[index] = temp
+            coda_sorting_algo[list]
+
+    return list
+
 def initialize_game():
     rng = np.random.default_rng()
 
     white_tiles = np.array([Tiles("W", f"{i}") for i in range(12)])
     black_tiles = np.array([Tiles("B", f"{i}") for i in range(12)])
-    scramble_tiles = np.array([Tiles("W", "-"), Tiles("B", "-")])
 
-    tiles_list = np.concatenate((white_tiles, black_tiles, scramble_tiles))
+    tiles_list = np.concatenate((white_tiles, black_tiles))
     shuffled_tiles_list = rng.permutation(tiles_list)
 
     print(shuffled_tiles_list)
 
+    return shuffled_tiles_list
+
+def setup(shuffled_tiles_list):
     t1, t2, t3, t4 = [int(x) for x in input("Pick four random tiles: ").split()]
 
     my_tiles = np.array([f'{shuffled_tiles_list[t1-1]}', f'{shuffled_tiles_list[t2-1]}',
@@ -40,13 +54,27 @@ def initialize_game():
     player3_tiles = np.array([other_tiles[4], other_tiles[5],
                 other_tiles[6], other_tiles[7]])
     
-    middle_tiles = np.delete(other_tiles, [0,1,2,3,4,5,6,7])
-    
+    remaining_tiles = np.delete(other_tiles, [0,1,2,3,4,5,6,7])
+
+    my_tiles = coda_sorting_algo(my_tiles)
+    player2_tiles = coda_sorting_algo(player2_tiles)
+    player3_tiles = coda_sorting_algo(player3_tiles)
+    remaining_tiles = coda_sorting_algo(remaining_tiles)
+
     print(f" Your tiles: {my_tiles}\n",f"Tiles of p2: {player2_tiles}\n",
-          f"Tiles of p3: {player3_tiles}\n\n",f"Remaining tiles: {middle_tiles}")
+          f"Tiles of p3: {player3_tiles}\n\n",f"Remaining tiles: {remaining_tiles}")
+    
+    return my_tiles, player2_tiles, player3_tiles, remaining_tiles
+
+def game_loop():
+    return
+
+def ai_players():
+    return
 
 def main():
-    initialize_game()
+    shuffled_tiles_list = initialize_game()
+    my_tiles, player2_tiles, player3_tiles, remaining_tiles = setup(shuffled_tiles_list)
 
 if __name__ == "__main__":
     main()
