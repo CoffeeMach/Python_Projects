@@ -1,4 +1,5 @@
 import re
+import random
 
 def get_words():
     word_list = []
@@ -13,13 +14,20 @@ def get_words():
             if meaning:
                 meaning_list.append(meaning.group())
 
-    dictionary = dict(zip(word_list, meaning_list))
+    return word_list, meaning_list
 
-    return dictionary
+def pick_random_word():
+    word_list, meaning_list = get_words()
+    word_index = random.randint(0,49)
+
+    secret_word = word_list[word_index]
+    meaning = meaning_list[word_index]
+
+    return secret_word, meaning
     
 
 def main():
-    get_words()
+    return
 
 
 if __name__ == "__main__":
