@@ -1,50 +1,50 @@
-bird <it flies
-feather <it is soft
-eye <you see
-surprise <when you receive a gift
-forever <endless
-alone <lonely
-together <when you are with friends
-life <fills you with admiration
-love <the most beautiful and the most painful emotion
-forget <to not remember
-today <not tomorrow
-tomorrow <not yesterday
-strange <not normal
-sorrow <sad
-change <to not stay the same
-door <a passage
-war <comes with blood
-peace <you wish the World had this
-store <where you buy stuff
-seat <where you sit
-death <when you close your eyes forever
-face <you see this everywhere with people
-silent <not a peep
-movie <you watch this
-devotion <giving your whole to something
-anchor <your reason to live
-ocean <the large blue
-sea <the small blue
-leaf <grows on trees
-patient <a sick person
-hurt <cannot heal on the heart
-pillow <nice weapon
-beg <to want something so bad
-bed <where you sleep
-trap <a mirage
-dread <not a nice feeling
-thing <stuff
-wave <the fun blue
-snow <the fun white
-mountain <difficult to pass through
-fountain <may get all your pennies
-penny <could also be a name
-night <when you sleep
-hope <some people find it useless
-luck <some people are born with this
-dinner <the last ...
-heart <hurts the most
-music <heals the most
-taste <you do not want to lose this
-wound <takes time to heal
+bird "it flies"
+feather "it is soft"
+eye "you see"
+surprise "when you receive a gift"
+forever "endless"
+alone "lonely"
+together "when you are with friends"
+life "fills you with admiration"
+love "the most beautiful and the most painful emotion"
+forget "to not remember"
+today "not tomorrow"
+tomorrow "not yesterday"
+strange "not normal"
+sorrow "sad"
+change "to not stay the same"
+door "a passage"
+war "comes with blood"
+peace "you wish the World had this"
+store "where you buy stuff"
+seat "where you sit"
+death "when you close your eyes forever"
+face "you see this everywhere with people"
+silent "not a peep"
+movie "you watch this"
+devotion "giving your whole to something"
+anchor "your reason to live"
+ocean "the large blue"
+sea "the small blue"
+leaf "grows on trees"
+patient "a sick person"
+hurt "cannot heal on the heart"
+pillow "nice weapon"
+beg "to want something so bad"
+bed "where you sleep"
+trap "a mirage"
+dread "not a nice feeling"
+thing "stuff"
+wave "the fun blue"
+snow "the fun white"
+mountain "difficult to pass through"
+fountain "may get all your pennies"
+penny "could also be a name"
+night "when you sleep"
+hope "some people find it useless"
+luck "some people are born with this"
+dinner "the last ..."
+heart "hurts the most"
+music "heals the most"
+taste "you do not want to lose this"
+wound "takes time to heal"
