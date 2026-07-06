@@ -95,7 +95,7 @@ def user_interface(random_word_letters, guessed_word):
         guess = input("Guess a letter: ")
 
         if not guess.isalpha():
-            print("Try only one letter at a time!\n")
+            print("Please enter only a letter!\n")
 
         elif guess in random_word_letters and guess not in guessed_word:
             print(f"The letter '{guess}' is in the word!")
