@@ -21,6 +21,26 @@ class Tiles:
     def reveal(self):
         print("[" + self.color + self.number + "]", end=" ")
 
+def reveal_tiles(display_tiles):
+    for tiles in display_tiles:
+        tiles.reveal()
+    print("\n")
+
+def reveal_colors(display_tiles):
+    for tiles in display_tiles:
+        tiles.reveal_color()
+    print("\n")
+
+def display_player(player_tiles, guess):
+    for tiles in player_tiles:
+        if int(tiles.number) != guess:
+            tiles.reveal_color()
+        else:
+            tiles.reveal()
+    print("\n")
+
+    return player_tiles
+
 def coda_sorting_algo(lst):
     for rng in range (len(lst)-1):
         for index in range (len(lst)-1-rng):
@@ -65,37 +85,99 @@ def setup(shuffled_tiles_list):
     player2_tiles = coda_sorting_algo(player2_tiles)
     player3_tiles = coda_sorting_algo(player3_tiles)
 
-    print("Your tiles:", end=" ")
+    print("\nYour tiles:", end=" ")
+    reveal_tiles(my_tiles)
+
+    print("P2 tiles:", end=" ")
+    reveal_tiles(player2_tiles)
+
+    print("P3 tiles:", end=" ")
+    display_player(player3_tiles, None)
+
+    print("Remaining tiles:", end=" ")
+    display_player(remaining_tiles, None)
+    
+    return my_tiles, player2_tiles, player3_tiles, remaining_tiles
+
+def standard_play(my_tiles, player2_tiles, player3_tiles, remaining_tiles):
+    clue_tile_index = int(input("Pick a clue tile: "))
+
+    my_tiles = np.append(my_tiles, remaining_tiles[clue_tile_index-1])
+    remaining_tiles = np.delete(remaining_tiles, clue_tile_index-1)
+
+    print("Your tiles are currently displayed as:", end=" ")
     for tiles in my_tiles:
         tiles.reveal()
     print("\n")
 
-    print("P2 tiles:", end=" ")
-    for tiles in player2_tiles:
-        tiles.reveal_color()
-    print("\n")
+    print("Pick a tile of another player and state the hidden number you think it might be.\n")
+    player = input("Enter player as P2 or P3: ")
+    tile_index, guess = [int(x) for x in input("Enter tile number and your guess: ").split()]
 
-    print("P3 tiles:", end=" ")
-    for tiles in player3_tiles:
-        tiles.reveal_color()
-    print("\n")
+    match player:
+        case "P2":
+            if int(player2_tiles[tile_index-1].number) == guess:
+                print("You have guessed correctly!")
+                print("The opponent will now reveal the tile.\n")
 
-    print("Remaining tiles:", end=" ")
-    for tiles in remaining_tiles:
-        tiles.reveal_color()
-    print("\n")
-    
-    return my_tiles, player2_tiles, player3_tiles, remaining_tiles
+                print("These are the current tiles: ")
+                print("Your tiles:", end=" ")
+                reveal_tiles(my_tiles)
+                print("P2 tiles:", end=" ")
+                display_player(player2_tiles, guess)
+                print("P3 tiles:", end=" ")
+                display_player(player3_tiles, None)
+                print("Remaining tiles:", end=" ")
+                display_player(remaining_tiles, None)
 
-def game_loop():
-    return
+                answer = input("Do you want to continue guessing? [Y/N]: ")
+
+                if answer == "Y":
+                    standard_play(my_tiles, player2_tiles, player3_tiles, remaining_tiles)
+                else:
+                    my_tiles = coda_sorting_algo(my_tiles)
+                    ai_players()
+            else:
+                print("You have guessed incorrectly! Your clue tile will be revealed to others.")
+                my_tiles = coda_sorting_algo(my_tiles)
+                ai_players()
+        case "P3":
+            if int(player3_tiles[tile_index-1].number) == guess:
+                print("You have guessed correctly!")
+                print("The opponent will now reveal the tile.\n")
+
+                print("These are the current tiles: ")
+                print("Your tiles:", end=" ")
+                reveal_tiles(my_tiles)
+                print("P2 tiles:", end=" ")
+                display_player(player2_tiles, None)
+                print("P3 tiles:", end=" ")
+                display_player(player3_tiles, guess)
+                print("Remaining tiles:", end=" ")
+                display_player(remaining_tiles, None)
+
+                answer = input("Do you want to continue guessing? [Y/N]: ")
+
+                if answer == "Y":
+                    standard_play(my_tiles, player2_tiles, player3_tiles, remaining_tiles)
+                else:
+                    ai_players()
+                    my_tiles = coda_sorting_algo(my_tiles)
+            else:
+                print("You have guessed incorrectly! Your clue tile will be revealed to others.")
+                my_tiles = coda_sorting_algo(my_tiles)
+                ai_players()
+        case _:
+            return
+
 
 def ai_players():
-    return
+    print("ais turn")
 
 def main():
     shuffled_tiles_list = initialize_game()
     my_tiles, player2_tiles, player3_tiles, remaining_tiles = setup(shuffled_tiles_list)
+    standard_play(my_tiles, player2_tiles, player3_tiles, remaining_tiles)
 
 if __name__ == "__main__":
     main()
