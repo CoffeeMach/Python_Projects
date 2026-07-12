@@ -95,7 +95,6 @@ def computer_loop(called_nums, last_num):
         player_turn = False
         computer_turn = True
         end_reached = True
-        end_reached = True
         return computer_turn, player_turn, called_nums, end_reached
     elif (next_num + 1 == 21):
         number_of_nums = 1
@@ -125,11 +124,11 @@ def end_condition(player_turn, computer_turn):
     return
 
 def game_loop(player_turn, computer_turn):
-    called_nums = [0]  # start with zero to get last_num
-    last_num = called_nums[len(called_nums)-1] # check for consecutiveness
+    called_nums = []  # start with zero to get last_num
+    last_num = called_nums[len(called_nums)-1] if called_nums else 0 # check for consecutiveness
 
     while (last_num < 21):
-        last_num = called_nums[len(called_nums)-1]
+        last_num = called_nums[len(called_nums)-1] if called_nums else 0
 
         if (player_turn):
             player_turn, computer_turn, called_nums, end_reached = player_loop(called_nums, last_num)
