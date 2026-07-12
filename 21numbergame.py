@@ -32,6 +32,11 @@ def player_loop(called_nums, last_num):
         print("You are disqualified!")
         return
     else:
+        if (last_num + 1 == 21):
+            player_turn = True
+            computer_turn = False
+            end_condition(player_turn, computer_turn)
+
         num1 = int(player_nums[0])
         if num1 != last_num + 1:
             print("You are disqualified!")
@@ -66,6 +71,15 @@ def computer_loop(called_nums, last_num):
     next_num = last_num + 1
     number_of_nums = random.randint(1,3)
 
+    if (next_num == 21):
+        player_turn = False
+        computer_turn = True
+        end_condition(player_turn, computer_turn)
+    elif (next_num + 1 == 21):
+        number_of_nums = 1
+    elif (next_num + 2 == 21):
+        number_of_nums = 2
+
     if (number_of_nums == 1):
         called_nums.extend([next_num])
     elif (number_of_nums == 2):
@@ -78,11 +92,13 @@ def computer_loop(called_nums, last_num):
 
     return last_num, computer_turn, player_turn, called_nums
 
-def end_condition(last_num, player_turn, computer_turn):
-    if (last_num >= 21 and player_turn):
+def end_condition(player_turn, computer_turn):
+    if (player_turn):
         print("You lose!")
-    elif (last_num >= 21 and computer_turn):
+    elif (computer_turn):
         print("You win!")
+
+    return
 
 def game_loop(player_turn, computer_turn):
     called_nums = [0]  # start with zero to get last_num
@@ -90,14 +106,15 @@ def game_loop(player_turn, computer_turn):
 
     while (last_num < 21):
         last_num = called_nums[len(called_nums)-1]
+        if (last_num >= 20):
+            end_condition(player_turn, computer_turn)
+
         if (player_turn):
             last_num, player_turn, computer_turn, called_nums = player_loop(called_nums, last_num)
             print(called_nums)
         elif (computer_turn):
             last_num, computer_turn, player_turn, called_nums = computer_loop(called_nums, last_num)
             print(called_nums)
-        else:
-            end_condition(last_num, player_turn, computer_turn)
 
 def main():
     player_turn, computer_turn = description()
