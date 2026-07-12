@@ -9,28 +9,33 @@ def description():
     "If you are the one to call 21, you lose! Else, you win!\n" \
     "Good luck and may the odds be ever in your favor!\n")
 
+    player_turn = False
+    computer_turn = False
+
     starting_player = input("Do you want to go first or second? [F/S]: ")
 
     match starting_player:
         case "F":
             player_turn = True
-            computer_turn = False
         case "S":
             computer_turn = True
-            player_turn = False
         case _:
-            return
+            print("You are disqualified!")
+            return player_turn, computer_turn
         
     return player_turn, computer_turn
 
 def player_loop(called_nums, last_num):
     end_reached = False
+    player_turn = False
+    computer_turn = False
     player_nums = input("Call 1 to 3 consecutive numbers: ").split()
 
     if not player_nums:
         print("You must enter at least one number!")
     elif len(player_nums) > 3:
         print("You are disqualified!")
+        end_reached = True
         return last_num, player_turn, computer_turn, called_nums, end_reached
     else:
         if (last_num + 1 >= 21):
@@ -42,6 +47,7 @@ def player_loop(called_nums, last_num):
         num1 = int(player_nums[0])
         if num1 != last_num + 1:
             print("You are disqualified!")
+            end_reached = True
             return last_num, player_turn, computer_turn, called_nums, end_reached
         else:
             called_nums.extend([num1])
@@ -49,6 +55,7 @@ def player_loop(called_nums, last_num):
             num2 = int(player_nums[1])
             if num2 != num1 + 1:
                 print("You are disqualified!")
+                end_reached = True
                 return last_num, player_turn, computer_turn, called_nums, end_reached
             else:
                 called_nums.extend([num2])
@@ -58,6 +65,7 @@ def player_loop(called_nums, last_num):
             num3 = int(player_nums[2])
             if num3 != num2 + 1:
                 print("You are disqualified!")
+                end_reached = True
                 return last_num, player_turn, computer_turn, called_nums, end_reached
             else:
                 called_nums.extend([num3])
@@ -71,12 +79,15 @@ def player_loop(called_nums, last_num):
 
 def computer_loop(called_nums, last_num):
     end_reached = False
+    player_turn = False
+    computer_turn = False
     next_num = last_num + 1
     number_of_nums = random.randint(1,3)
 
     if (next_num >= 21):
         player_turn = False
         computer_turn = True
+        end_reached = True
         end_reached = True
         return last_num, computer_turn, player_turn, called_nums, end_reached
     elif (next_num + 1 == 21):
@@ -98,9 +109,11 @@ def computer_loop(called_nums, last_num):
 
 def end_condition(player_turn, computer_turn):
     if (player_turn):
-        print("You lose!")
+        print("\nYou lose!")
     elif (computer_turn):
-        print("You win!")
+        print("\nYou win!")
+    else:
+        return
 
     return
 
@@ -116,13 +129,15 @@ def game_loop(player_turn, computer_turn):
             if (end_reached):
                 end_condition(player_turn, computer_turn)
                 break
-            print(called_nums)
+            print(f"P1 called: {called_nums}")
         elif (computer_turn):
             last_num, computer_turn, player_turn, called_nums, end_reached = computer_loop(called_nums, last_num)
             if (end_reached):
                 end_condition(player_turn, computer_turn)
                 break
-            print(called_nums)
+            print(f"P2 called: {called_nums}\n")
+        elif (not player_turn and not computer_turn):
+            break
 
 def main():
     player_turn, computer_turn = description()
